@@ -93,13 +93,7 @@ UserWorker(_Inout_   LPVOID Parametar) {
         message = CONTAINING_RECORD(pOvlp, Received_MESSAGE, Ovlp);
 
 
-        //TODO: Scan Process here and get result
-        // ULONG ScanResult = ScanProcess( message->Processinfo.ProcFilePath);
-
         ZeroMemory(&replyMsg, sizeof(replyMsg.MessageHeader) + sizeof(replyMsg.Replay.ResultFilePath) + sizeof(replyMsg.Replay.ChangePath));
-
-        // Check here if the path need to be changed.
-        //till now it will not change
 
         if (!wcscmp(message->Fileinfo.OriginalFilePath, OldDOSName)) {
             printf("Found A match %S \n", message->Fileinfo.OriginalFilePath);
