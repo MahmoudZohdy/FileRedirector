@@ -170,7 +170,7 @@ int main()
         hThreadArray[i] = CreateThread(
             NULL,
             0,
-            UserWorker,
+            (LPTHREAD_START_ROUTINE)UserWorker,
             NULL,
             CREATE_SUSPENDED,
             NULL);

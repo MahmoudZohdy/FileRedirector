@@ -13,6 +13,8 @@ for example, if **UserClient.exe** is in **C:\Redirector\UserClient.exe** and yo
 
 You can do the mapping as you like as long as the New Path is in the DOS format.
 
+# Testing
+it is tested on windows 10 and windows 8.1 0x64/0x32 bit
 
 # Note
 
