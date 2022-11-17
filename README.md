@@ -10,7 +10,7 @@ In our case the User-Mode Client (**UserClient.exe**) checks if any access to th
 
 for example, if **UserClient.exe** is in **C:\Redirector\UserClient.exe** and you try to access **C:\Redirector\File1.txt** it will be redirected to the file **C:\Redirector\File2.txt**
 
-![](https://github.com/MahmoudZohdy/IAT-Obfuscation/blob/main/images/IAT-Obfuscation.PNG)
+![](https://github.com/MahmoudZohdy/FileRedirector/blob/main/images/FileRedirector.PNG)
 
 You can do the mapping as you like as long as the New Path is in the DOS format.
 
