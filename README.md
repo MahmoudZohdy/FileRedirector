@@ -7,7 +7,7 @@ The Kernel Driver register for Pre Create Operation (**IRP_MJ_CREATE**) and Pre 
 
 ![](https://github.com/MahmoudZohdy/FileRedirector/blob/main/images/FileRedirector.PNG)
 
-In our case the User-Mode Client (**UserClient.exe**) checks if any access to the file **File1.txt** in the same directory as **UserClient.exe** it will redirect it to the file **File2.txt**.
+In our case the User-Mode Client (**UserClient.exe**) checks if any access to the file **File1.txt** (in the same directory as **UserClient.exe**) it will redirect it to the file **File2.txt**.
 
 for example, if **UserClient.exe** is in **C:\Redirector\UserClient.exe** and you try to access **C:\Redirector\File1.txt** it will be redirected to the file **C:\Redirector\File2.txt**
 
