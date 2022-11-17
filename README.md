@@ -14,6 +14,15 @@ for example, if **UserClient.exe** is in **C:\Redirector\UserClient.exe** and yo
 You can do the mapping as you like as long as the New Path is in the DOS format.
 
 
+# Note
+
+i do not redirect/check file access originated from the kernel, you can disable this by commenting the bellow in the following functions **FileRedirectorPreNetworkQueryOpen**, **FileRedirectorPreCreate**
+
+```cpp
+    if (Cbd->RequestorMode == KernelMode)
+        return FLT_PREOP_SUCCESS_NO_CALLBACK;
+```
+
 Kindly note that this is only for educational purposes only
 
 # Reference

@@ -449,6 +449,10 @@ FileRedirectorPreNetworkQueryOpen(
 
     PAGED_CODE();
 
+    //Skip Operation From Kernel-Mode
+    //comment if you want to monitor kernel file access
+    if (Cbd->RequestorMode == KernelMode)
+        return FLT_PREOP_SUCCESS_NO_CALLBACK;
 
 
     DebugTrace(DEBUG_TRACE_ALL_IO,
@@ -618,6 +622,7 @@ FileRedirectorPreCreate(
     UNICODE_STRING NewFileName;
 
     //Skip Operation From Kernel-Mode
+    //comment if you want to monitor kernel file access
     if (Cbd->RequestorMode == KernelMode)
         return FLT_PREOP_SUCCESS_NO_CALLBACK;
 
