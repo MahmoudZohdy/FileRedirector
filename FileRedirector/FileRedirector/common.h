@@ -6,7 +6,7 @@
 // structure used for communication on the PORT between driver and user-client
 #define MAX_PATH          260
 typedef struct _ORIGINAL_FILE_PATH {    
-    DWORD64 PID;                                              /*!< Process ID of the requstor process. */
+    DWORD64 PID;                                              /*!< Process ID of the requestor process. */
     WCHAR   OriginalFilePath[MAX_PATH * 2];                   /*!< DOS File Name that is being opened. */
 } ORIGINAL_FILE_PATH, * PORIGINAL_FILE_PATH;
 
