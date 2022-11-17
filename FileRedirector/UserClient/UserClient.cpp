@@ -92,18 +92,17 @@ UserWorker(_Inout_   LPVOID Parametar) {
 
         message = CONTAINING_RECORD(pOvlp, Received_MESSAGE, Ovlp);
 
-
         ZeroMemory(&replyMsg, sizeof(replyMsg.MessageHeader) + sizeof(replyMsg.Replay.ResultFilePath) + sizeof(replyMsg.Replay.ChangePath));
 
-        if (!wcscmp(message->Fileinfo.OriginalFilePath, OldDOSName)) {
-            printf("Found A match %S \n", message->Fileinfo.OriginalFilePath);
+        if (message->Fileinfo.PID!= GetCurrentProcessId() &&!wcscmp(message->Fileinfo.OriginalFilePath, OldDOSName)) {
+
+            printf("Found A match For %S Redirecting It to %S\n", message->Fileinfo.OriginalFilePath, NewDOSName);
 
             replyMsg.Replay.ChangePath = 1;
             wcscpy_s(replyMsg.Replay.ResultFilePath, 69, NewDOSName);
         }
         else {
             replyMsg.Replay.ChangePath = 0;
-
         }
 
         replyMsg.MessageHeader.MessageId = message->MessageHeader.MessageId;

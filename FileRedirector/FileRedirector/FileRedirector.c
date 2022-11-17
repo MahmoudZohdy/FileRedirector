@@ -221,7 +221,7 @@ NTSTATUS FileRedirectorConnectNotifyCallback(
 
 
 //Send Process name and PID To user Client for scan
-NTSTATUS FileRedirectorSendDataToUserClientAndReceiveReply(_In_ PCUNICODE_STRING Process_Name, _Outptr_ REPALY_MESSAGE * Reply);
+NTSTATUS FileRedirectorSendDataToUserClientAndReceiveReply(_In_ PCUNICODE_STRING Process_Name, _In_ DWORD64 PID, _Outptr_ REPALY_MESSAGE * Reply);
 
 //
 //  Filter callback routines
@@ -1033,7 +1033,7 @@ FileRedirectorCompareMapping(
     if (!Replay) {
         return FALSE;
     }
-    NTSTATUS Status = FileRedirectorSendDataToUserClientAndReceiveReply(&NameInfo->Name, Replay);
+    NTSTATUS Status = FileRedirectorSendDataToUserClientAndReceiveReply(&NameInfo->Name, HandleToULong(PsGetCurrentProcessId()), Replay);
     if (!NT_SUCCESS(Status)) {
         //  send\recieve data failed
         return FALSE;
@@ -1152,6 +1152,7 @@ FileRedirectorDisconnectNotifyCallback(
 NTSTATUS
 FileRedirectorSendDataToUserClientAndReceiveReply(
     _In_ PCUNICODE_STRING FileName,
+    _In_ DWORD64 PID,
     _Outptr_ REPALY_MESSAGE * Reply) {
 
     PAGED_CODE();
@@ -1176,10 +1177,11 @@ FileRedirectorSendDataToUserClientAndReceiveReply(
     ULONG   ReplyLength = sizeof(REPALY_MESSAGE);
 
     RtlZeroMemory(Reply, sizeof(REPALY_MESSAGE));
+    DriverMsg.PID = PID;
     wcscpy_s(DriverMsg.OriginalFilePath, FileName->Length, FileName->Buffer);
 
     Status = FltSendMessage(Globals.Filter, &Globals.ScanClientPort, &DriverMsg,
-        FileName->Length, Reply, &ReplyLength, &Timeout);
+        FileName->Length + sizeof(DWORD64), Reply, &ReplyLength, &Timeout);
 
 
     if (Status == STATUS_TIMEOUT) {
